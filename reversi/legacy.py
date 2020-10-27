@@ -1,7 +1,9 @@
-
+# -*- coding: utf-8 -*-
 #
 # オセロ（リバーシ） 6x6
 #
+
+import random
 
 N = 6  # 大きさ
 
@@ -128,10 +130,29 @@ def game(player1, player2):
 			on_gaming = put_and_reverse(board, position, WHITE)
 	show_board(board)  # 最後の結果を表示!
 
-def ochibi(board, color): #おチビAI
-  for position in range(N*N):
+# def ochibi(board, color): #おチビAI
+#   for position in range(N*N):
+#     if put_and_reverse(board, position, color):
+#       return position
+#   return 0
+
+def rand_int(a, b, k):  # 重複無しの乱整数生成
+  # a：下限
+  # b：上限
+  # k：要素数
+  ns = []
+  # 生成した乱整数をリストに入れていく
+  # リストに既出の乱整数はスルーする
+  while len(ns) < k:
+    n = random.randint(a, b)
+    if not n in ns:
+      ns.append(n)
+  return ns
+
+def random_npc(board, color) :
+  for position in rand_int(0, 35, 36):
     if put_and_reverse(board, position, color):
       return position
   return 0
 
-game(ochibi, ochibi)
+game(random_npc, random_npc)
